@@ -19,7 +19,7 @@ class Game
 
   def take_turn
     puts "Guess #{@guess_count}: please input four digits (1-6)"
-    @guess = @human_player.player_guess
+    @guess = @human_player.guess_code
     @guess_count += 1
     check_guess
   end
@@ -41,15 +41,33 @@ class Game
   def evaluate_guess
     correct_position = 0
     correct_number = 0
-    @guess.each_with_index do |num, i|
+    temp_code = @code.clone
+    temp_guess = @guess.clone
+
+    @guess.each_index do |i|
       if @guess[i] == @code[i]
         correct_position += 1
-      elsif @code.include?(num)
-        correct_number += 1
+        temp_code[i] = '*'
+        temp_guess[i] = '*'
+      # elsif temp_code.include?(num)
+        # correct_number += 1
       end
     end
-    @hint = ['X'] * correct_position + ['O'] * (correct_number - correct_position)
+
+    temp_guess.each_index do |i|
+      if temp_guess[i] != '*' && temp_code.include?(temp_guess[i])
+        correct_number += 1
+        temp_code[temp_code.find_index(temp_guess[i])] = 'x'
+        temp_guess[i] = 'x'
+      end
+    end
+
+    @hint = ['X'] * correct_position + ['O'] * correct_number
     p @hint
+
+    correct_position.times {print 'X'}
+    correct_number.times {print 'O'}
+    puts ''
   end
 
 end

@@ -4,7 +4,7 @@
 class HumanPlayer
   def initialize; end
 
-  def player_guess
+  def guess_code
     guess_input = gets.chomp
     if guess_input.count('^1-6').zero? && guess_input.length == 4
       @guess = guess_input.split('')
