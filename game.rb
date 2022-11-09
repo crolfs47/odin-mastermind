@@ -8,23 +8,18 @@ class Game
     @code = ['6', '4', '4', '2']
     @guess_count = 1
     @game_over = false
+    @human_player = HumanPlayer.new
     puts 'Welcome to Mastermind!'
   end
 
   def play_game
-    player_guess until @game_over
+    take_turn until @game_over
   end
 
-  def player_guess
+  def take_turn
     puts "Guess #{@guess_count}: please input four digits (1-6)"
-    guess_input = gets.chomp
-    if guess_input.count('^1-6').zero? && guess_input.length == 4
-      @guess = guess_input.split('')
-      p @guess
-      @guess_count += 1
-    else
-      puts 'Please input exactly four valid digits, 1-6'
-    end
+    @guess = @human_player.player_guess
+    @guess_count += 1
     check_if_game_over
   end
 
@@ -38,4 +33,5 @@ class Game
       puts 'You win'
     end
   end
+
 end
