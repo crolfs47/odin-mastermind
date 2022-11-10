@@ -1,19 +1,21 @@
 # game class initializes the game and manages the other mastermind classes
 
-require_relative 'human_player.rb'
-require_relative 'computer_player.rb'
+require_relative 'human_player'
+require_relative 'computer_player'
 
 class Game
   def initialize
-    @code = ['6', '4', '4', '2']
     @guess_count = 1
     @game_over = false
     @human_player = HumanPlayer.new
+    @computer_player = ComputerPlayer.new
     @hint = []
     puts 'Welcome to Mastermind!'
   end
 
   def play_game
+    @code = @computer_player.create_code
+    p @code
     take_turn until @game_over
   end
 
