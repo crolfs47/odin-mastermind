@@ -7,28 +7,29 @@ class Game
   def initialize
     @guess_count = 1
     @game_over = false
-    @human_player = HumanPlayer.new
-    @computer_player = ComputerPlayer.new
+    # @human_player = HumanPlayer.new
+    # @computer_player = ComputerPlayer.new
     # @hint = []
     puts 'Welcome to Mastermind!'
   end
 
   def play_game
-    choose_role
-    @code = @computer_player.create_code
+    define_players
+    @code = @player_2.create_code
     p @code
     take_turn until @game_over
   end
 
   def take_turn
     puts "Guess #{@guess_count}: please input four digits (1-6)"
-    @guess = @human_player.guess_code
+    @guess = @player_1.guess_code
     @guess_count += 1
     check_guess
   end
 
   def choose_role
-    puts 'Do you want to be the codemaker or codebreaker? Input 1 for codemaker or 2 for codebreaker'
+    puts 'Do you want to be the codebreaker or codemaker?'
+    puts 'Input 1 for codebreaker or 2 for codemaker'
     role = gets.chomp
     p role
     return role if role.match(/^[1-2]$/)
@@ -37,7 +38,14 @@ class Game
   end
   
   def define_players
-
+    role_choice = choose_role
+    if role_choice == '1'
+      @player_1 = HumanPlayer.new
+      @player_2 = ComputerPlayer.new
+    elsif role_choice == '2'
+      @player_1 = ComputerPlayer.new
+      @player_2 = HumanPlayer.new
+    end
   end
 
   # checks if guess is correct or out of guesses, otherwise calls to evaluate the guess
