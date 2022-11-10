@@ -9,11 +9,12 @@ class Game
     @game_over = false
     @human_player = HumanPlayer.new
     @computer_player = ComputerPlayer.new
-    @hint = []
+    # @hint = []
     puts 'Welcome to Mastermind!'
   end
 
   def play_game
+    choose_role
     @code = @computer_player.create_code
     p @code
     take_turn until @game_over
@@ -24,6 +25,19 @@ class Game
     @guess = @human_player.guess_code
     @guess_count += 1
     check_guess
+  end
+
+  def choose_role
+    puts 'Do you want to be the codemaker or codebreaker? Input 1 for codemaker or 2 for codebreaker'
+    role = gets.chomp
+    p role
+    return role if role.match(/^[1-2]$/)
+    puts 'Please input only 1 or 2'
+    choose_role
+  end
+  
+  def define_players
+
   end
 
   # checks if guess is correct or out of guesses, otherwise calls to evaluate the guess
@@ -39,7 +53,8 @@ class Game
     end
   end
 
-  # evaluates how correct guess is, gives hint - potentially split into two methods?
+  # evaluates how correct guess is, gives hint
+  # potentially split into two methods, or split out hint?
   def evaluate_guess
     correct_position = 0
     correct_number = 0
@@ -62,9 +77,14 @@ class Game
       end
     end
 
-    # decide what format to use for hint below (store as array or just print X/O)
-    @hint = ['X'] * correct_position + ['O'] * correct_number
+    correct_position
+    correct_number
 
+    # not using below (stores hint as array)
+    # @hint = ['X'] * correct_position + ['O'] * correct_number
+
+    # give hint (new method?)
+    print 'Hint: '
     correct_position.times {print 'X'}
     correct_number.times {print 'O'}
     puts ''

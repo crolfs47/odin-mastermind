@@ -14,4 +14,7 @@ class HumanPlayer
     end
     @guess
   end
+
+  def create_code
+  end
 end
