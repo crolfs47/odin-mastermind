@@ -2,7 +2,7 @@
 
 class ComputerPlayer
   def initialize
-    @code = []
+    
   end
 
   def guess_code

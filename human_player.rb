@@ -16,5 +16,14 @@ class HumanPlayer
   end
 
   def create_code
+    puts 'Please input your secret code, it must be four digits (1-6) '
+    code_input = gets.chomp
+    if code_input.count('^1-6').zero? && code_input.length == 4
+      @code = code_input.split('')
+    else
+      puts 'Please input exactly four valid digits, 1-6'
+      create_code
+    end
+    @code
   end
 end

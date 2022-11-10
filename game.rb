@@ -15,14 +15,14 @@ class Game
 
   def play_game
     define_players
-    @code = @player_2.create_code
+    @code = @player2.create_code
     p @code
     take_turn until @game_over
   end
 
   def take_turn
     puts "Guess #{@guess_count}: please input four digits (1-6)"
-    @guess = @player_1.guess_code
+    @guess = @player1.guess_code
     @guess_count += 1
     check_guess
   end
@@ -31,8 +31,8 @@ class Game
     puts 'Do you want to be the codebreaker or codemaker?'
     puts 'Input 1 for codebreaker or 2 for codemaker'
     role = gets.chomp
-    p role
     return role if role.match(/^[1-2]$/)
+
     puts 'Please input only 1 or 2'
     choose_role
   end
@@ -40,11 +40,11 @@ class Game
   def define_players
     role_choice = choose_role
     if role_choice == '1'
-      @player_1 = HumanPlayer.new
-      @player_2 = ComputerPlayer.new
+      @player1 = HumanPlayer.new
+      @player2 = ComputerPlayer.new
     elsif role_choice == '2'
-      @player_1 = ComputerPlayer.new
-      @player_2 = HumanPlayer.new
+      @player1 = ComputerPlayer.new
+      @player2 = HumanPlayer.new
     end
   end
 
@@ -62,7 +62,7 @@ class Game
   end
 
   # evaluates how correct guess is, gives hint
-  # potentially split into two methods, or split out hint?
+  # potentially split into two methods, and split out hint?
   def evaluate_guess
     correct_position = 0
     correct_number = 0
@@ -85,9 +85,6 @@ class Game
       end
     end
 
-    correct_position
-    correct_number
-
     # not using below (stores hint as array)
     # @hint = ['X'] * correct_position + ['O'] * correct_number
 
@@ -97,5 +94,4 @@ class Game
     correct_number.times {print 'O'}
     puts ''
   end
-
 end
