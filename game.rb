@@ -28,7 +28,7 @@ class Game
   def check_guess
     if @guess == @code
       @game_over = true
-      puts 'You win'
+      puts 'You win!'
     elsif @guess_count > 10
       @game_over = true
       puts 'Out of guesses, you lose!'
@@ -37,7 +37,7 @@ class Game
     end
   end
 
-  # evaluates how correct guess is, gives hint
+  # evaluates how correct guess is, gives hint - potentially split into two methods?
   def evaluate_guess
     correct_position = 0
     correct_number = 0
@@ -49,8 +49,6 @@ class Game
         correct_position += 1
         temp_code[i] = '*'
         temp_guess[i] = '*'
-      # elsif temp_code.include?(num)
-        # correct_number += 1
       end
     end
 
@@ -62,8 +60,8 @@ class Game
       end
     end
 
+    # decide what format to use for hint below (store as array or just print X/O)
     @hint = ['X'] * correct_position + ['O'] * correct_number
-    p @hint
 
     correct_position.times {print 'X'}
     correct_number.times {print 'O'}

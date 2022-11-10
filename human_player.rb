@@ -10,6 +10,7 @@ class HumanPlayer
       @guess = guess_input.split('')
     else
       puts 'Please input exactly four valid digits, 1-6'
+      guess_code
     end
     @guess
   end
