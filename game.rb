@@ -23,6 +23,7 @@ class Game
   def take_turn
     puts "Guess #{@guess_count}: please input four digits (1-6)"
     @guess = @player1.guess_code
+    puts "Guess: #{@guess.join('')}"
     @guess_count += 1
     check_guess
   end
@@ -52,10 +53,10 @@ class Game
   def check_guess
     if @guess == @code
       @game_over = true
-      puts 'You win!'
+      puts 'Correct, codebreaker wins!'
     elsif @guess_count > 10
       @game_over = true
-      puts 'Out of guesses, you lose!'
+      puts 'Out of guesses, codebreaker loses!'
     else
       evaluate_guess
     end

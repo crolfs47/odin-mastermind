@@ -6,6 +6,8 @@ class ComputerPlayer
   end
 
   def guess_code
+    @guess = Array.new(4) { rand(1...6) }.join.split('')
+    @guess
   end
 
   def create_code
