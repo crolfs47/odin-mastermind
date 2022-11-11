@@ -7,9 +7,6 @@ class Game
   def initialize
     @guess_count = 1
     @game_over = false
-    # @human_player = HumanPlayer.new
-    # @computer_player = ComputerPlayer.new
-    # @hint = []
     puts 'Welcome to Mastermind!'
   end
 
@@ -17,12 +14,14 @@ class Game
     define_players
     @code = @player2.create_code
     p @code
+    puts ''
     take_turn until @game_over
   end
 
   def take_turn
     puts "Guess #{@guess_count}: please input four digits (1-6)"
     @guess = @player1.guess_code
+    puts ''
     puts "Guess: #{@guess.join('')}"
     @guess_count += 1
     check_guess
@@ -93,6 +92,9 @@ class Game
     print 'Hint: '
     correct_position.times {print 'X'}
     correct_number.times {print 'O'}
+    puts ''
+    puts 'X means you have one correct number in the correct location'
+    puts 'O means you have one correct number in the wrong location'
     puts ''
   end
 end

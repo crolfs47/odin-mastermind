@@ -14,5 +14,6 @@ Object oriented programming Ruby project - build a Mastermind game from the comm
 ## Still can improve:
  - Need to consider if anything should be private
  - Keeping methods simple and concise
+ - Add game board display, colors
 
 Assignment - https://www.theodinproject.com/lessons/ruby-mastermind
