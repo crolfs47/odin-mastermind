@@ -9,9 +9,10 @@ Object oriented programming Ruby project - build a Mastermind game from the comm
  - Git/Github
 
 ## What I learned:
- - 
+ - Worked on splitting things into separate classes for each part of the game, still can improve on this
  
 ## Still can improve:
- - 
+ - Need to consider if anything should be private
+ - Keeping methods simple and concise
 
 Assignment - https://www.theodinproject.com/lessons/ruby-mastermind
