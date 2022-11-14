@@ -68,21 +68,11 @@ class Game
     temp_guess = @guess.clone
     @exact_match = correct_positions(temp_code, temp_guess)
     @number_match = correct_numbers(temp_code, temp_guess)
-
-    p @exact_match
-    p @number_match
+    give_hint(@exact_match, @number_match)
 
     # # Stores hint as an array
     # @hint = ['X'] * correct_position + ['O'] * correct_number
 
-    # # give hint (new method?)
-    # print 'Hint: '
-    # correct_position.times {print 'X'}
-    # correct_number.times {print 'O'}
-    # puts ''
-    # puts 'X means you have one correct number in the correct location'
-    # puts 'O means you have one correct number in the wrong location'
-    # puts ''
   end
 
   def correct_positions(code, guess)
@@ -108,6 +98,15 @@ class Game
     end
     correct_number
   end
-
+  
+  def give_hint(exact_matches, number_matches)
+    print 'Hint: '
+    exact_matches.times {print 'X'}
+    number_matches.times {print 'O'}
+    puts ''
+    puts 'X means you have one correct number in the correct location'
+    puts 'O means you have one correct number in the wrong location'
+    puts ''
+  end
 
 end
