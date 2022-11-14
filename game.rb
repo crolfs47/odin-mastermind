@@ -19,8 +19,8 @@ class Game
   end
 
   def take_turn
-    puts "Guess #{@guess_count}: please input four digits (1-6)"
-    @guess = @player1.guess_code
+    # puts "Guess #{@guess_count}: please input four digits (1-6)"
+    @guess = @player1.guess_code(@guess_count)
     puts ''
     puts "Guess: #{@guess.join('')}"
     @guess_count += 1
@@ -62,7 +62,6 @@ class Game
   end
 
   # evaluates how correct guess is, gives hint
-  # potentially split into two methods, and split out hint?
   def evaluate_guess
     temp_code = @code.clone
     temp_guess = @guess.clone
@@ -70,9 +69,8 @@ class Game
     @number_match = correct_numbers(temp_code, temp_guess)
     give_hint(@exact_match, @number_match)
 
-    # # Stores hint as an array
-    # @hint = ['X'] * correct_position + ['O'] * correct_number
-
+    # # Stores hint as an array, not sure if I'll need this
+    # @hint = ['X'] * @exact_match + ['O'] * @number_match
   end
 
   def correct_positions(code, guess)
