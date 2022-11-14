@@ -64,37 +64,50 @@ class Game
   # evaluates how correct guess is, gives hint
   # potentially split into two methods, and split out hint?
   def evaluate_guess
-    correct_position = 0
-    correct_number = 0
     temp_code = @code.clone
     temp_guess = @guess.clone
+    @exact_match = correct_positions(temp_code, temp_guess)
+    @number_match = correct_numbers(temp_code, temp_guess)
 
-    @guess.each_index do |i|
-      if @guess[i] == @code[i]
-        correct_position += 1
-        temp_code[i] = '*'
-        temp_guess[i] = '*'
-      end
-    end
+    p @exact_match
+    p @number_match
 
-    temp_guess.each_index do |i|
-      if temp_guess[i] != '*' && temp_code.include?(temp_guess[i])
-        correct_number += 1
-        temp_code[temp_code.find_index(temp_guess[i])] = 'x'
-        temp_guess[i] = 'x'
-      end
-    end
-
-    # not using below (stores hint as array)
+    # # Stores hint as an array
     # @hint = ['X'] * correct_position + ['O'] * correct_number
 
-    # give hint (new method?)
-    print 'Hint: '
-    correct_position.times {print 'X'}
-    correct_number.times {print 'O'}
-    puts ''
-    puts 'X means you have one correct number in the correct location'
-    puts 'O means you have one correct number in the wrong location'
-    puts ''
+    # # give hint (new method?)
+    # print 'Hint: '
+    # correct_position.times {print 'X'}
+    # correct_number.times {print 'O'}
+    # puts ''
+    # puts 'X means you have one correct number in the correct location'
+    # puts 'O means you have one correct number in the wrong location'
+    # puts ''
   end
+
+  def correct_positions(code, guess)
+    correct_position = 0
+    guess.each_index do |i|
+      if guess[i] == code[i]
+        correct_position += 1
+        code[i] = '*'
+        guess[i] = '*'
+      end
+    end
+    correct_position
+  end
+
+  def correct_numbers(code, guess)
+    correct_number = 0
+    guess.each_index do |i|
+      if guess[i] != '*' && code.include?(guess[i])
+        correct_number += 1
+        code[code.find_index(guess[i])] = 'x'
+        guess[i] = 'x'
+      end
+    end
+    correct_number
+  end
+
+
 end
