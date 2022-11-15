@@ -1,9 +1,11 @@
 # class for the computer player methods and variables
 
-class ComputerPlayer
+require_relative 'game_board'
 
+class ComputerPlayer
   def initialize
-    @possible_codes = []
+    @possible_codes = generate_all_codes
+    @game_board = GameBoard.new
   end
 
   def create_code
@@ -18,21 +20,24 @@ class ComputerPlayer
     if guess_count == 1
       @guess = ['1', '1', '2', '2']
     else
-      @guess = Array.new(4) { rand(1...6) }.join.split('')
+      p @possible_codes
+      @guess = @possible_codes[0]
+    end
+             
+  end
+
+  def eliminate_codes_correct_position(exact_matches, number_matches)
+    @possible_codes.each_with_index do |possible_code, i|
+      exact = @game_board.correct_positions(possible_code.clone, @guess.clone)
+      number = @game_board.correct_numbers(possible_code.clone, @guess.clone)
+      @possible_codes.delete_at(i) if exact_matches <= exact && number_matches <= number
     end
   end
 
-  def eliminate_codes_correct_position(exact_matches)
-    if exact_matches > 0
-        p 'test exact matches'
-    end
-  end
-
-  def eliminate_codes_correct_number
-  end
+  def eliminate_codes_correct_number; end
 
   def generate_all_codes
-    numbers = [1, 2, 3, 4, 5, 6]
+    numbers = ['1', '2', '3', '4', '5', '6']
     @possible_codes = numbers.permutation(4).to_a
     @possible_codes
   end
