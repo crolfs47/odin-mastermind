@@ -30,7 +30,7 @@ class ComputerPlayer
     @possible_codes.each_with_index do |possible_code, i|
       exact = @game_board.correct_positions(possible_code.clone, @guess.clone)
       number = @game_board.correct_numbers(possible_code.clone, @guess.clone)
-      @possible_codes.delete_at(i) if exact_matches <= exact && number_matches <= number
+      @possible_codes.delete_at(i) if exact_matches <= exact
     end
   end
 
@@ -38,7 +38,7 @@ class ComputerPlayer
 
   def generate_all_codes
     numbers = ['1', '2', '3', '4', '5', '6']
-    @possible_codes = numbers.permutation(4).to_a
+    @possible_codes = numbers.repeated_permutation(4).to_a
     @possible_codes
   end
 end
