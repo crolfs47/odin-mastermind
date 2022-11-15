@@ -18,15 +18,6 @@ class Game
     take_turn until @game_over
   end
 
-  def take_turn
-    # puts "Guess #{@guess_count}: please input four digits (1-6)"
-    @guess = @player1.guess_code(@guess_count)
-    puts ''
-    puts "Guess: #{@guess.join('')}"
-    @guess_count += 1
-    check_guess
-  end
-
   def choose_role
     puts 'Do you want to be the codebreaker or codemaker?'
     puts 'Input 1 for codebreaker or 2 for codemaker'
@@ -37,6 +28,7 @@ class Game
     choose_role
   end
   
+  # player 1 is the codebreaker, player 2 is the codemaker
   def define_players
     role_choice = choose_role
     if role_choice == '1'
@@ -46,6 +38,14 @@ class Game
       @player1 = ComputerPlayer.new
       @player2 = HumanPlayer.new
     end
+  end
+
+  def take_turn
+    @guess = @player1.guess_code(@guess_count)
+    puts ''
+    puts "Guess: #{@guess.join('')}"
+    @guess_count += 1
+    check_guess
   end
 
   # checks if guess is correct or out of guesses, otherwise calls to evaluate the guess
@@ -65,9 +65,10 @@ class Game
   def evaluate_guess
     temp_code = @code.clone
     temp_guess = @guess.clone
-    @exact_match = correct_positions(temp_code, temp_guess)
-    @number_match = correct_numbers(temp_code, temp_guess)
-    give_hint(@exact_match, @number_match)
+    @exact_matches = correct_positions(temp_code, temp_guess)
+    @number_matches = correct_numbers(temp_code, temp_guess)
+    give_hint(@exact_matches, @number_matches)
+    @player1.eliminate_codes_correct_position(@exact_matches)
 
     # # Stores hint as an array, not sure if I'll need this
     # @hint = ['X'] * @exact_match + ['O'] * @number_match

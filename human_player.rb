@@ -27,4 +27,9 @@ class HumanPlayer
     end
     @code
   end
+
+  # doesn't do anything, only need for computer player
+  def eliminate_codes_correct_position(exact_matches)
+  end
+  
 end
