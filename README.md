@@ -15,5 +15,7 @@ Object oriented programming Ruby project - build a Mastermind game from the comm
  - Need to consider if anything should be private
  - Keeping methods simple and concise
  - Add game board display, colors
+ - I think the Game class is probably doing too much
+ - Computer algorithm runs a little slow
 
 Assignment - https://www.theodinproject.com/lessons/ruby-mastermind
