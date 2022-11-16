@@ -1,24 +1,35 @@
 class GameBoard
+  def initialize
+    @guess = []
+    @code = []
+  end
+
   def correct_positions(code, guess)
+    temp_code = code.clone
+    temp_guess = guess.clone
     correct_position = 0
-    guess.each_index do |i|
-      next unless guess[i] == code[i]
+    temp_guess.each_index do |i|
+      next unless temp_guess[i] == temp_code[i]
 
       correct_position += 1
-      code[i] = '*'
-      guess[i] = '*'
+      temp_code[i] = '*'
+      temp_guess[i] = '*'
     end
+    @guess = temp_guess
+    @code = temp_code
     correct_position
   end
 
-  def correct_numbers(code, guess)
+  def correct_numbers(code)
+    temp_code = @code.clone
+    temp_guess = @guess.clone
     correct_number = 0
-    guess.each_index do |i|
-      next unless guess[i] != '*' && code.include?(guess[i])
+    temp_guess.each_index do |i|
+      next unless temp_guess[i] != '*' && temp_code.include?(temp_guess[i])
 
       correct_number += 1
-      code[code.find_index(guess[i])] = 'x'
-      guess[i] = 'x'
+      temp_code[temp_code.find_index(temp_guess[i])] = 'x'
+      temp_guess[i] = 'x'
     end
     correct_number
   end

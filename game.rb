@@ -66,18 +66,40 @@ class Game
 
   # evaluates how correct guess is, gives hint
   def evaluate_guess(code, guess)
-    temp_code = code.clone
-    temp_guess = guess.clone
-    @exact_matches = @game_board.correct_positions(temp_code, temp_guess)
-    @number_matches = @game_board.correct_numbers(temp_code, temp_guess)
+    # temp_code = code.clone
+    # temp_guess = guess.clone
+    @exact_matches = @game_board.correct_positions(code, guess)
+    @number_matches = @game_board.correct_numbers(code)
     give_hint(@exact_matches, @number_matches)
-    @player1.eliminate_codes_correct_position(@exact_matches,@number_matches)
-    
+    @player1.eliminate_codes_correct_position(@exact_matches, @number_matches)
 
     # # Stores hint as an array, not sure if I'll need this
     # @hint = ['X'] * @exact_match + ['O'] * @number_match
   end
 
+  # def correct_positions(code, guess)
+  #   correct_position = 0
+  #   guess.each_index do |i|
+  #     next unless guess[i] == code[i]
+
+  #     correct_position += 1
+  #     code[i] = '*'
+  #     guess[i] = '*'
+  #   end
+  #   correct_position
+  # end
+
+  # def correct_numbers(code, guess)
+  #   correct_number = 0
+  #   guess.each_index do |i|
+  #     next unless guess[i] != '*' && code.include?(guess[i])
+
+  #     correct_number += 1
+  #     code[code.find_index(guess[i])] = 'x'
+  #     guess[i] = 'x'
+  #   end
+  #   correct_number
+  # end
 
   
   def give_hint(exact_matches, number_matches)
