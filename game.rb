@@ -2,13 +2,13 @@
 
 require_relative 'human_player'
 require_relative 'computer_player'
-require_relative 'game_board'
+require_relative 'hint_calculator'
 
 class Game
   def initialize
     @guess_count = 1
     @game_over = false
-    @game_board = GameBoard.new
+    @hint_calculator = HintCalculator.new
     puts 'Welcome to Mastermind!'
   end
 
@@ -60,47 +60,16 @@ class Game
       puts 'Out of guesses, codebreaker loses!'
     else
       evaluate_guess(@code, @guess)
-      
     end
   end
 
-  # evaluates how correct guess is, gives hint
+  # evaluates how correct guess is, gives hint, calls computer player algorithm
   def evaluate_guess(code, guess)
-    # temp_code = code.clone
-    # temp_guess = guess.clone
-    @exact_matches = @game_board.correct_positions(code, guess)
-    @number_matches = @game_board.correct_numbers(code)
+    @exact_matches = @hint_calculator.correct_positions(code, guess)
+    @number_matches = @hint_calculator.correct_numbers(code)
     give_hint(@exact_matches, @number_matches)
-    @player1.eliminate_codes_correct_position(@exact_matches, @number_matches)
-
-    # # Stores hint as an array, not sure if I'll need this
-    # @hint = ['X'] * @exact_match + ['O'] * @number_match
+    @player1.evaluate_hint(@exact_matches, @number_matches)
   end
-
-  # def correct_positions(code, guess)
-  #   correct_position = 0
-  #   guess.each_index do |i|
-  #     next unless guess[i] == code[i]
-
-  #     correct_position += 1
-  #     code[i] = '*'
-  #     guess[i] = '*'
-  #   end
-  #   correct_position
-  # end
-
-  # def correct_numbers(code, guess)
-  #   correct_number = 0
-  #   guess.each_index do |i|
-  #     next unless guess[i] != '*' && code.include?(guess[i])
-
-  #     correct_number += 1
-  #     code[code.find_index(guess[i])] = 'x'
-  #     guess[i] = 'x'
-  #   end
-  #   correct_number
-  # end
-
   
   def give_hint(exact_matches, number_matches)
     print 'Hint: '

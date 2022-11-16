@@ -1,4 +1,6 @@
-class GameBoard
+# class to calculate correct positions and correct numbers in the wrong position
+
+class HintCalculator
   def initialize
     @guess = []
     @code = []
