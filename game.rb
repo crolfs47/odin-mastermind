@@ -15,7 +15,6 @@ class Game
   def play_game
     define_players
     @code = @player2.create_code
-    p @code
     puts ''
     take_turn until @game_over
   end
