@@ -19,3 +19,5 @@ Object oriented programming Ruby project - build a Mastermind game from the comm
  - Computer algorithm runs a little slow
 
 Assignment - https://www.theodinproject.com/lessons/ruby-mastermind
+
+Play Here - https://replit.com/@CathyRolfs/odin-mastermind 
